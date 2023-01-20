@@ -1,0 +1,163 @@
+-- i make scripts that are so stupid, everyone would use them
+-- add me if you want to make a suggestion
+-- shawnjbragdon#0001
+local Fonts = {
+[1] = {
+["upper"] = {
+["A"] = "Ａ",
+["B"] = "Ｂ",
+["C"] = "Ｃ",
+["D"] = "Ｄ",
+["E"] = "Ｅ",
+["F"] = "Ｆ",
+["G"] = "Ｇ",
+["H"] = "Ｈ",
+["I"] = "Ｉ",
+["J"] = "Ｊ",
+["K"] = "Ｋ",
+["L"] = "Ｌ",
+["M"] = "Ｍ",
+["N"] = "Ｎ",
+["O"] = "Ｏ",
+["P"] = "Ｐ",
+["Q"] = "Ｑ",
+["R"] = "Ｒ",
+["S"] = "Ｓ",
+["T"] = "Ｔ",
+["U"] = "Ｕ",
+["V"] = "Ｖ",
+["W"] = "Ｗ",
+["X"] = "Ｘ",
+["Y"] = "Ｙ",
+["Z"] = "Ｚ",
+},
+["lower"] = {
+["a"] = "ａ",
+["b"] = "ｂ",
+["c"] = "ｃ",
+["d"] = "ｄ",
+["e"] = "ｅ",
+["f"] = "ｆ",
+["g"] = "ｇ",
+["h"] = "ｈ",
+["i"] = "ｉ",
+["j"] = "ｊ",
+["k"] = "ｋ",
+["l"] = "ｌ",
+["m"] = "ｍ",
+["n"] = "ｎ",
+["o"] = "ｏ",
+["p"] = "ｐ",
+["q"] = "ｑ",
+["r"] = "ｒ",
+["s"] = "ｓ",
+["t"] = "ｔ",
+["u"] = "ｕ",
+["v"] = "ｖ",
+["w"] = "ｗ",
+["x"] = "ｘ",
+["y"] = "ｙ",
+["z"] = "ｚ",
+}
+},
+
+[2] = {
+-- ??????????????????????????
+["upper"] = {
+["A"] = "?",
+["B"] = "?",
+["C"] = "?",
+["D"] = "?",
+["E"] = "?",
+["F"] = "?",
+["G"] = "?",
+["H"] = "?",
+["I"] = "?",
+["J"] = "?",
+["K"] = "?",
+["L"] = "?",
+["M"] = "?",
+["N"] = "?",
+["O"] = "?",
+["P"] = "?",
+["Q"] = "?",
+["R"] = "?",
+["S"] = "?",
+["T"] = "?",
+["U"] = "?",
+["V"] = "?",
+["W"] = "?",
+["X"] = "?",
+["Y"] = "?",
+["Z"] = "?",
+},
+["lower"] = {
+["a"] = "?",
+["b"] = "?",
+["c"] = "?",
+["d"] = "?",
+["e"] = "?",
+["f"] = "?",
+["g"] = "?",
+["h"] = "?",
+["i"] = "?",
+["j"] = "?",
+["k"] = "?",
+["l"] = "?",
+["m"] = "?",
+["n"] = "?",
+["o"] = "?",
+["p"] = "?",
+["q"] = "?",
+["r"] = "?",
+["s"] = "?",
+["t"] = "?",
+["u"] = "?",
+["v"] = "?",
+["w"] = "?",
+["x"] = "?",
+["y"] = "?",
+["z"] = "?",
+},
+}
+}
+
+local font = Fonts[1]
+
+local ReplicatedStorage: ReplicatedStorage = game:GetService("ReplicatedStorage")
+local DefaultChatSystemChatEvents: Folder = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents")
+local SayMessageRequest: RemoteEvent = DefaultChatSystemChatEvents:WaitForChild("SayMessageRequest")
+local rawmetatable = getrawmetatable(game)
+setreadonly(rawmetatable, false)
+local nc = rawmetatable.__namecall
+
+rawmetatable.__namecall = function(self, ...)
+local tuple = {...}
+local namecallmethod = getnamecallmethod()
+
+if not checkcaller() then
+if self and typeof and typeof(self) == "Instance" then
+if game.IsA(self, "RemoteEvent") and namecallmethod == "FireServer" then
+if tuple[2] == "All" then
+local text = "";
+for i = 1, string.len(tuple[1]) do
+local success, response = pcall(function()
+text = text .. font.upper[string.sub(tuple[1], i, i)]
+end)
+if not success then
+success, response = pcall(function()
+text = text .. font.lower[string.sub(tuple[1], i, i)]
+end)
+if not success then
+text = text .. string.sub(tuple[1], i, i)
+end
+end
+end
+tuple[1] = text
+end
+end
+end
+end
+
+return nc(self, unpack(tuple))
+end
